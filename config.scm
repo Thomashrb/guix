@@ -33,6 +33,7 @@
  (packages
   (append
    (list
+    ;; desktop
     (specification->package "font-terminus")
     (specification->package "font-inconsolata")
     (specification->package "i3-wm")
@@ -42,13 +43,28 @@
     (specification->package "bspwm")
     (specification->package "sxhkd")
     (specification->package "lxrandr")
-    (specification->package "tmux")
-    (specification->package "emacs")
-    (specification->package "vim")
+    ;; media
+    (specification->package "lynx")
+    (specification->package "firefox")
+    ;; terms
     (specification->package "zsh")
     (specification->package "zsh-autosuggestions")
     (specification->package "st")
     (specification->package "rxvt-unicode")
+    ;; editors
+    (specification->package "tmux")
+    (specification->package "emacs")
+    (specification->package "vim")
+    ;; develop
+    (specification->package "docker")
+    (specification->package "docker-cli")
+    (specification->package "flatpak")
+    (specification->package "elixir")
+    (specification->package "erlang")
+    (specification->package "rust")
+    (specification->package "gcc-toolchain")
+    (specification->package "make")
+    ;; tools
     (specification->package "xrdb")
     (specification->package "setxkbmap")
     (specification->package "tree")
@@ -58,16 +74,6 @@
     (specification->package "wget")
     (specification->package "ispell")
     (specification->package "git")
-    (specification->package "docker")
-    (specification->package "docker-cli")
-    (specification->package "flatpak")
-    (specification->package "elixir")
-    (specification->package "erlang")
-    (specification->package "rust")
-    (specification->package "gcc-toolchain")
-    (specification->package "make")
-    (specification->package "lynx")
-    ;;    (specification->package "firefox")
     (specification->package "nss-certs"))
    %base-packages))
  (services
