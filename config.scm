@@ -1,11 +1,12 @@
 (use-modules
  (gnu)
  (gnu packages shells)
+ (gnu packages databases)
  ;; Import nonfree linux module.
  (nongnu packages linux)
  (nongnu system linux-initrd))
 
-(use-service-modules desktop networking ssh xorg docker)
+(use-service-modules desktop networking ssh xorg docker databases)
 
 (operating-system
  ;; Use nonfree firmware and drivers
@@ -62,8 +63,12 @@
     (specification->package "flatpak")
     (specification->package "postgresql")
     (specification->package "elixir")
+    (specification->package "erlang")
+    (specification->package "rust")
+    (specification->package "gcc-toolchain")
+    (specification->package "make")
     (specification->package "lynx")
-    (specification->package "firefox")
+    ;;    (specification->package "firefox")
     (specification->package "nss-certs"))
    %base-packages))
  (services
@@ -71,6 +76,9 @@
    (list
     (service docker-service-type)
     (service openssh-service-type)
+    (service postgresql-service-type
+             (postgresql-configuration
+              (postgresql postgresql-11)))
     (set-xorg-configuration
      (xorg-configuration
       (keyboard-layout keyboard-layout))))
