@@ -67,6 +67,7 @@
     (specification->package "flatpak")
     (specification->package "elixir")
     (specification->package "erlang")
+    (specification->package "openjdk")
     (specification->package "rust")
     (specification->package "gcc-toolchain")
     (specification->package "make")
