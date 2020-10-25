@@ -34,12 +34,18 @@
   (append
    (list
     ;; desktop
+    ;;; fonts
+    (specification->package "xset")
+    (specification->package "xlsfonts")
+    (specification->package "fontconfig")
     (specification->package "font-terminus")
     (specification->package "font-inconsolata")
+    ;;; wm
     (specification->package "i3-wm")
     (specification->package "i3status")
     (specification->package "dmenu")
     (specification->package "rofi")
+    (specification->package "lemonbar")
     (specification->package "bspwm")
     (specification->package "sxhkd")
     (specification->package "lxrandr")
@@ -50,7 +56,7 @@
     (specification->package "zsh")
     (specification->package "zsh-autosuggestions")
     (specification->package "st")
-    (specification->package "rxvt-unicode")
+    (specification->package "alacritty")
     ;; editors
     (specification->package "tmux")
     (specification->package "emacs")
