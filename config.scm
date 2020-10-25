@@ -8,6 +8,9 @@
 
 (use-service-modules desktop networking ssh xorg docker databases)
 
+(define my-keyboard-layout
+  (keyboard-layout "no" "nodeadkeys" #:options '("ctrl:nocaps")))
+
 (operating-system
  ;; Use nonfree firmware and drivers
  (kernel linux)
@@ -16,8 +19,7 @@
   (list linux-firmware))
  (locale "en_US.utf8")
  (timezone "Europe/Brussels")
- (keyboard-layout
-  (keyboard-layout "no" "nodeadkeys"))
+ (keyboard-layout my-keyboard-layout)
  (host-name "guix")
  (users
   (cons*
@@ -28,7 +30,7 @@
     (group "users")
     (home-directory "/home/bbsl")
     (supplementary-groups
-     '("wheel" "netdev" "audio" "video")))
+     '("wheel" "netdev" "audio" "video" "docker")))
    %base-user-accounts))
  (packages
   (append
@@ -102,13 +104,13 @@ host	all	all	::1/128         md5"))))))
 
     (set-xorg-configuration
      (xorg-configuration
-      (keyboard-layout keyboard-layout))))
+      (keyboard-layout my-keyboard-layout))))
    %desktop-services))
  (bootloader
   (bootloader-configuration
    (bootloader grub-efi-bootloader)
    (target "/boot/efi")
-   (keyboard-layout keyboard-layout)))
+   (keyboard-layout my-keyboard-layout)))
  (swap-devices
   (list "/dev/sda2"))
  (file-systems
