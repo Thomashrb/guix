@@ -4,10 +4,13 @@
  (gnu packages databases)
  ;; Import nonfree linux module.
  (nongnu packages linux)
- (nongnu system linux-initrd))
+ (nongnu system linux-initrd)
+ ((gnu services audio) #:select (mpd-service-type mpd-configuration mpd-output)))
 
 (use-service-modules desktop networking ssh xorg docker databases)
 
+(define username "bbsl")
+(define hostname "guix")
 (define my-keyboard-layout
   (keyboard-layout "no" "nodeadkeys" #:options '("ctrl:nocaps")))
 
@@ -20,15 +23,14 @@
  (locale "en_US.utf8")
  (timezone "Europe/Brussels")
  (keyboard-layout my-keyboard-layout)
- (host-name "guix")
+ (host-name hostname)
  (users
   (cons*
    (user-account
-    (name "bbsl")
-    (comment "Bbsl")
+    (name username)
     (shell #~(string-append #$zsh "/bin/zsh"))
     (group "users")
-    (home-directory "/home/bbsl")
+    (home-directory (string-append "/home/" username))
     (supplementary-groups
      '("wheel" "netdev" "audio" "video" "docker")))
    %base-user-accounts))
@@ -37,9 +39,6 @@
    (list
     ;; desktop
     ;;; fonts
-    (specification->package "xset")
-    (specification->package "xlsfonts")
-    (specification->package "fontconfig")
     (specification->package "font-terminus")
     (specification->package "font-inconsolata")
     ;;; wm
@@ -54,6 +53,7 @@
     ;; media
     (specification->package "lynx")
     (specification->package "firefox")
+    (specification->package "alsa-utils")
     ;; terms
     (specification->package "zsh")
     (specification->package "zsh-autosuggestions")
@@ -70,12 +70,9 @@
     (specification->package "elixir")
     (specification->package "erlang")
     (specification->package "openjdk")
-    (specification->package "rust")
     (specification->package "gcc-toolchain")
     (specification->package "make")
     ;; tools
-    (specification->package "xrdb")
-    (specification->package "setxkbmap")
     (specification->package "tree")
     (specification->package "acpi")
     (specification->package "the-silver-searcher")
@@ -90,6 +87,18 @@
    (list
     (service docker-service-type)
     (service openssh-service-type)
+    ;; music and mpd directories has to be created
+    (service mpd-service-type
+             (mpd-configuration
+              (user username)
+              (music-dir "~/music")
+              (playlist-dir "~/.config/mpd/playlists")
+              (db-file "~/.config/mpd/database")
+              (state-file "~/.config/mpd/state")
+              (sticker-file "~/.config/mpd/sticker.sql")
+              (outputs
+               (list (mpd-output
+                      (type "alsa"))))))
     (service postgresql-service-type
              (postgresql-configuration
               (postgresql postgresql-11)
