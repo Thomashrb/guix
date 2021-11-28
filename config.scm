@@ -28,7 +28,7 @@
   (cons*
    (user-account
     (name username)
-    (shell #~(string-append #$zsh "/bin/zsh"))
+    (shell #~(string-append #$fish "/bin/fish"))
     (group "users")
     (home-directory (string-append "/home/" username))
     (supplementary-groups
@@ -44,20 +44,18 @@
     ;;; wm
     (specification->package "i3-wm")
     (specification->package "i3status")
-    (specification->package "dmenu")
     (specification->package "rofi")
     (specification->package "lemonbar")
-    (specification->package "bspwm")
-    (specification->package "sxhkd")
+    (specification->package "dmenu")
+;;    (specification->package "bspwm")
+;;    (specification->package "sxhkd")
     (specification->package "lxrandr")
     ;; media
     (specification->package "lynx")
     (specification->package "firefox")
     (specification->package "alsa-utils")
     ;; terms
-    (specification->package "zsh")
-    (specification->package "zsh-autosuggestions")
-    (specification->package "st")
+    (specification->package "fish")
     (specification->package "alacritty")
     ;; editors
     (specification->package "tmux")
@@ -76,11 +74,13 @@
     (specification->package "tree")
     (specification->package "acpi")
     (specification->package "the-silver-searcher")
+    (specification->package "ripgrep")
     (specification->package "curl")
     (specification->package "wget")
     (specification->package "ispell")
     (specification->package "git")
     (specification->package "nss-certs"))
+    (specification->package "mc"))
    %base-packages))
  (services
   (append
@@ -118,21 +118,19 @@ host	all	all	::1/128         md5"))))))
  (bootloader
   (bootloader-configuration
    (bootloader grub-efi-bootloader)
-   (target "/boot/efi")
+   (targets (list "/boot/efi"))
    (keyboard-layout my-keyboard-layout)))
- (swap-devices
-  (list "/dev/sda2"))
  (file-systems
   (cons*
    (file-system
     (mount-point "/boot/efi")
     (device
-     (uuid "FADC-D519" 'fat32))
+     (uuid "9035-4876" 'fat32))
     (type "vfat"))
    (file-system
     (mount-point "/")
     (device
-     (uuid "da1c3b89-23eb-4d5d-9f34-02f4a10550cd"
+     (uuid "3efe3cfc-1705-4395-86c7-0e90d397f5de"
            'ext4))
     (type "ext4"))
    %base-file-systems)))
